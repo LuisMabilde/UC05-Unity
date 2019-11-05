@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
+	
 	void Update () {
 		//Implementar Pulo Aqui! 
 	}
@@ -51,6 +51,18 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			anim.SetTrigger("parado");
 		}
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Translate(Vector2.right * Velocidade * Time.deltaTime);
+            transform.eulerAngles = new Vector2(0, 0);
+        }
+        
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(Vector2.right * Velocidade * Time.deltaTime);
+            transform.eulerAngles = new Vector2(0, 180);
+        }
 
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
@@ -99,7 +111,7 @@ public class PlayerController : MonoBehaviour {
             cloneBullet.transform.eulerAngles =new Vector3 (0, 0, 180);
         }
         
-     
+    
         
     }
 
