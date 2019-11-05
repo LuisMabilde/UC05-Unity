@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
 	public Image vida;
 	private MensagemControle MC;
 
-    public Transform bulletspawn;
+    public Transform bulletSpawn;
     public GameObject bulletObject;
     public float fireRate;
     public float nextFire;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour {
 			anim.SetTrigger("parado");
 		}
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             Fire();
         }
@@ -84,12 +84,22 @@ public class PlayerController : MonoBehaviour {
 	
     void Fire()
     {
+        float translationY = 0;
+		float translationX = Input.GetAxis ("Horizontal") * Velocidade;
+		transform.Translate (translationX, translationY, 0);
+		transform.Rotate (0, 0, 0);
+       
         anim.SetTrigger("Fire");
         nextFire = Time.time + fireRate;
 
-        GameObject cloneBullet = Instantiate(bulletObject, bulletspawn.position, bulletspawn.rotation);
-
-    
+        GameObject cloneBullet = Instantiate(bulletObject, bulletSpawn.position, bulletSpawn.rotation);
+        
+        if (translationX < 0 && viradoDireita)
+        {
+            cloneBullet.transform.eulerAngles =new Vector3 (0, 0, 180);
+        }
+        
+     
         
     }
 
